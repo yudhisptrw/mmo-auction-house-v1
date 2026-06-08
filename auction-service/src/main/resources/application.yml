@@ -1,0 +1,84 @@
+server:
+  port: 8080
+
+spring:
+
+  application:
+    name: auction-service
+
+  profiles:
+    active: local
+
+  datasource:
+    url: YOUR_POSTGRES_DB_URL
+    username: YOUR_POSTGRES_DB_USERNAME
+    password: YOUR_POSTGRES_DB_PASSWORD
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+    show-sql: true
+
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      host: YOUR_REDIS_HOST
+      port: YOUR_REDIS_PORT
+      username: YOUR_REDIS_USERNAME
+      password: YOUR_REDIS_PASSWORD
+
+  cache:
+    type: redis
+
+  elasticsearch:
+    uris: YOUR_ELASTICSEARCH_ENDPOINT
+
+  kafka:
+    bootstrap-servers: YOUR_KAFKA_BOOTSTRAP_SERVER
+
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: >
+        org.apache.kafka.common.security.plain.PlainLoginModule required
+        username='YOUR_KAFKA_USERNAME'
+        password='YOUR_KAFKA_PASSWORD';
+      ssl.truststore.location: YOUR_TRUSTSTORE_PATH
+      ssl.truststore.password: YOUR_TRUSTSTORE_PASSWORD
+      ssl.truststore.type: JKS
+
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      group-id: auction-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+        spring.json.trusted.packages: "*"
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.springframework.kafka: DEBUG
+
+elastic:
+  api-key: YOUR_ELASTICSEARCH_ENDPOINT

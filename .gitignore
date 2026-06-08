@@ -1,0 +1,26 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Build
+target/
+out/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local Configuration
+auction-service/src/main/resources/application-local.yml
+
+# Environment Files
+.env
+
+# Kafka / SSL
+*.jks
+
+# Maven Wrapper (optional)
+.mvn/wrapper/maven-wrapper.jar
